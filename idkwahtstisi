@@ -212,87 +212,31 @@ task.spawn(checkRoundOverStats)
 
 task.spawn(function()
     while task.wait(0.3) do
-        if not isRunning then
-            continue
-        end
-	
-        local ballPart = getBall()
+        if isRunning then
+            local ballPart = getBall()
 
-        if ballPart then
-            humanoid:MoveTo(ballPart.Position)
+            if ballPart then
+                humanoid:MoveTo(ballPart.Position)
 
-            local distance = (ballPart.Position - humanoidRootPart.Position).Magnitude
+                local distance = (ballPart.Position - humanoidRootPart.Position).Magnitude
 
-            if distance <= 15 then
-                local targetPart = getRandomTargetPart()
-                if targetPart then
-                    local lookVector = (targetPart.Position - humanoidRootPart.Position).Unit
-                    humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position, humanoidRootPart.Position + lookVector)
-                end
+                if distance <= 15 then
+                    local targetPart = getRandomTargetPart()
+                    if targetPart then
+                        local lookVector = (targetPart.Position - humanoidRootPart.Position).Unit
+                        humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position, humanoidRootPart.Position + lookVector)
+                    end
 
-                if ballPart.Position.Y > humanoidRootPart.Position.Y + 5 then
-                    pressSpace()
-                    pressClick()
+                    if ballPart.Position.Y > humanoidRootPart.Position.Y + 5 then
+                        pressSpace()
+                        pressClick()
+                    end
                 end
             end
         end
     end
 end)
 
-local player = game.Players.LocalPlayer
-local enablejoin = false
-local VirtualInputManager = game:GetService("VirtualInputManager")
-
-local function teamSelection()
-    if not enablejoin then return end
-
-    task.wait(10)
-
-    local teamSelectionGui = player.PlayerGui.Interface.TeamSelection
-    local gameInterface = player.PlayerGui.Interface.Game
-
-    if not gameInterface.Visible then
-        teamSelectionGui.Visible = true
-    end
-
-    while not gameInterface.Visible and enablejoin do
-        local randomNum = math.random(1, 6)
-        local button = teamSelectionGui["2"][tostring(randomNum)]
-
-        if button and button:IsA("ImageButton") then
-            local absPos = button.AbsolutePosition
-            local absSize = button.AbsoluteSize
-            local clickPosition = absPos + (absSize / 2)
-
-            VirtualInputManager:SendMouseButtonEvent(clickPosition.X, clickPosition.Y, 0, true, game, 1)
-            VirtualInputManager:SendMouseButtonEvent(clickPosition.X, clickPosition.Y, 0, false, game, 1)
-        end
-
-        task.wait(math.random(5, 15) / 10) 
-    end
-
-    if gameInterface.Visible then
-        teamSelectionGui.Visible = false
-    end
-end
-
-player.CharacterAdded:Connect(function(character)
-    if enablejoin then
-        teamSelection()
-    end
-end)
-
-Tab:CreateToggle({
-    Name = "Auto Join Match",
-    Description = "Automatically join a match after waiting for 30 seconds(to avoid getting bugged)",
-    CurrentValue = false,
-    Callback = function(Value)
-        enablejoin = Value
-        if enablejoin then
-            teamSelection()
-        end
-    end
-})
 
 Tab:CreateSection("Misc")
 
