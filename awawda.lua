@@ -199,7 +199,7 @@ local IconModule = {
 		["work_off"] = "http://www.roblox.com/asset/?id=123456";
 		["delete_outline"] = "http://www.roblox.com/asset/?id=123456";
 		["account_box"] = "http://www.roblox.com/asset/?id=123456";
-		["home_filled"] = "rbxassetid://9080449299";
+		["home_filled"] = "rbxassetid://1234567890";
 		["lock"] = "http://www.roblox.com/asset/?id=123456";
 		["perm_device_information"] = "http://www.roblox.com/asset/?id=123456";
 		["add_task"] = "http://www.roblox.com/asset/?id=123456";
@@ -1584,7 +1584,7 @@ local function GetIcon(icon, source)
 
 			return asset
 		else
-			return "rbxassetid://10723434557"
+			return "rbxassetid://1234567890"
 		end
 	else	
 		if icon ~= nil and IconModule[source] then
@@ -1836,7 +1836,7 @@ local function unpackt(array : table)
 end
 
 -- Interface Management
-local LunaUI = isStudio and script.Parent:WaitForChild("Luna UI") or game:GetObjects("rbxassetid://86467455075715")[1]
+local LunaUI = isStudio and script.Parent:WaitForChild("Luna UI")
 
 local SizeBleh = nil
 
@@ -2205,14 +2205,14 @@ else
 end
 
 local function Maximise(Window)
-	Window.Controls.ToggleSize.ImageLabel.Image = "rbxassetid://10137941941"
+	Window.Controls.ToggleSize.ImageLabel.Image = "rbxassetid://1234567890"
 	tween(Window, {Size = MainSize})
 	Window.Elements.Visible = true
 	Window.Navigation.Visible = true
 end
 
 local function Minimize(Window)
-	Window.Controls.ToggleSize.ImageLabel.Image = "rbxassetid://11036884234"
+	Window.Controls.ToggleSize.ImageLabel.Image = "rbxassetid://1234567890"
 	Window.Elements.Visible = false
 	Window.Navigation.Visible = false
 	tween(Window, {Size = MinSize})
@@ -2224,7 +2224,7 @@ function Luna:CreateWindow(WindowSettings)
 	WindowSettings = Kwargify({
 		Name = "Luna UI Example Window",
 		Subtitle = "",
-		LogoID = "6031097225",
+		LogoID = nil,
 		LoadingEnabled = true,
 		LoadingTitle = "Luna Interface Suite",
 		LoadingSubtitle = "by Nebula Softworks",
@@ -2262,7 +2262,7 @@ function Luna:CreateWindow(WindowSettings)
 
 	Main.Title.Title.Text = WindowSettings.Name
 	Main.Title.subtitle.Text = WindowSettings.Subtitle
-	Main.Logo.Image = "rbxassetid://" .. WindowSettings.LogoID
+	Main.Logo.Image = "rbxassetid://1234567890"
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	Main.Size = MainSize
@@ -6725,7 +6725,7 @@ if isStudio then
 	local Window = Luna:CreateWindow({
 		Name = "Nebula Client - Luna Hub | Blade Ball",
 		Subtitle = "by Nebula Softworks",
-		LogoID = "123795201100198",
+		LogoID = nil,
 		LoadingEnabled = true,
 		LoadingTitle = "Nebula Client (Luna Hub)",
 		LoadingSubtitle = "Loading script for Blade Ball",
